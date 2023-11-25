@@ -1,6 +1,7 @@
 use std::net::TcpListener;
 use actix_web::dev::Server;
 use actix_web::{App, HttpServer, web};
+use crate::configuration::Configuration;
 use crate::routes::{health_check, home};
 
 pub struct Application {
@@ -9,11 +10,11 @@ pub struct Application {
 }
 
 impl Application {
-    pub async fn build() -> Result<Self, anyhow::Error> {
-        let address = format!("{}:{}", "127.0.0.1", "8080");
+    pub async fn build(settings: Configuration) -> Result<Self, anyhow::Error> {
+        let address = format!("{}:{}", settings.application.host, settings.application.port);
         let listener = TcpListener::bind(address).expect("Failed to bind port");
         let port = listener.local_addr().unwrap().port();
-        let server = run(listener, "".to_string())
+        let server = run(listener, settings.application.base_url)
             .await?;
         Ok(Self { port, server })
     }
