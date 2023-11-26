@@ -31,7 +31,7 @@ rand = { version = "0.8.5", features = ["std_rng"] }
 anyhow = "1.0.75"
 thiserror = "1"
 secrecy = { version = "0.8", features = ["serde"] }
-
+uuid = { version = "1", features = ["v4", "serde"] }
 
 
 [dependencies.sqlx]
@@ -46,3 +46,12 @@ features = [
     "migrate",
     "offline"
 ]
+
+[dependencies.reqwest]
+version = "0.11"
+default-features = false
+# We need the `json` feature flag to serialize/deserialize JSON payloads
+features = ["json", "rustls-tls", "cookies"]
+
+[dev-dependencies]
+once_cell = "1"
