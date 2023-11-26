@@ -30,3 +30,19 @@ tracing-log = "0.2.0"
 rand = { version = "0.8.5", features = ["std_rng"] }
 anyhow = "1.0.75"
 thiserror = "1"
+secrecy = { version = "0.8", features = ["serde"] }
+
+
+
+[dependencies.sqlx]
+version = "0.6"
+default-features = false
+features = [
+    "runtime-tokio-rustls",
+    "macros",
+    "postgres",
+    "uuid",
+    "chrono",
+    "migrate",
+    "offline"
+]
